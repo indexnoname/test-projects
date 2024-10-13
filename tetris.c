@@ -14,6 +14,8 @@ char userInput;
 bool screen[20][11];
 int TimeCounter = 0;
 int Score = 0;
+int Speed = 20;
+int PieceCounter = 0;
 
 bool Field[20][11] = {0};
 // rototation = i = 12 + y - (x*4)
@@ -141,7 +143,7 @@ int main() {
         CurrentRotation++;
       break;
     }
-    if (TimeCounter >= 20) {
+    if (TimeCounter >= Speed) {
       TimeCounter = 0;
       if (DoesPieceFit(CurrentPiece, CurrentRotation, CurrentX, CurrentY + 1)) {
         CurrentY++;
@@ -161,7 +163,7 @@ int main() {
                 LineFull &= Field[CurrentY + py][px];
               }
               if (LineFull) {                // Shift rows down
-                Score = Score * 0.5 + 10;
+                Score = Score * 0.5 + 100;
                 for (int x = 0; x < 11; x++) {
                   Field[CurrentY+py][x] = 0;
                 }
@@ -172,6 +174,10 @@ int main() {
                 }
               }
             }
+          }
+          PieceCounter++;
+          if (PieceCounter / 10 > 0) {
+            Speed--;
           }
           CurrentX = 6;
           CurrentY = 0;

@@ -157,19 +157,17 @@ int main() {
           for (int py = 0; py < 4; py++) {
             if (CurrentY + py < 20) {
               bool LineFull = true;
-              for (int px = 1; px < 12; px++) {
-                LineFull &= Field[CurrentY + py][CurrentX + px] != 0;
+              for (int px = 0; px < 11; px++) {
+                LineFull &= Field[CurrentY + py][px];
               }
-              if (LineFull) {
+              if (LineFull) {                // Shift rows down
                 Score = Score * 0.5 + 10;
-                // Clear the current line
-                for (int px = 1; px < 12; px++) {
-                  Field[CurrentY][CurrentX + px] = 0;
+                for (int x = 0; x < 11; x++) {
+                  Field[CurrentY+py][x] = 0;
                 }
-                // Shift rows down
-                for (int py = CurrentY; py > 0; py--) {
+                for (int y = CurrentY+py; y > 0; y--) {
                   for (int px = 0; px < 11; px++) {
-                    Field[py][px] = Field[py - 1][px];
+                    Field[y][px] = Field[y - 1][px];
                   }
                 }
               }
